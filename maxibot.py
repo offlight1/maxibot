@@ -47,7 +47,7 @@ async def show_server_info(ctx):
             await ctx.send(vc)
 
     else:
-        await ctx.send(f"No Voice Channels in {guild_name}")
+        await ctx.send(f"No Voice Channels in {ctx.guild.name}")
 
 
 
