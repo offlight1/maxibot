@@ -3,7 +3,7 @@ from discord.ext import commands
 import discord
 import random
 
-token = 'enter yours here'
+token = 'add yours here'
 intents = discord.Intents.all()
 
 bot = commands.Bot(command_prefix='!', intents = intents)
@@ -21,8 +21,36 @@ async def on_ready():
 async def on_member_join(member: discord.Member):
     await member.send(f"Welcome to {member.guild.name}, {member.mention}!")
 
-#@bot.command(name="serverinfo")
+@bot.command(name="serverinfo")
 # add server information function here
+async def show_server_info(ctx):
+    guild_voice = ctx.guild.voice_channels
+    guild_chat = ctx.guild.text_channels
+    creation_date = ctx.guild.created_at
+
+    await ctx.send(f"Guild Name: \n {ctx.guild.name}")
+    await ctx.send("----------------------")
+
+    await ctx.send(f"Created: \n {creation_date}")
+
+    await ctx.send("----------------------")
+    
+    await ctx.send('Text Channels:')
+    for txt in guild_chat:
+        await ctx.send(txt)
+
+    await ctx.send('----------------------')
+
+    if guild_voice != None:
+        await ctx.send("Voice Channels:")
+        for vc in guild_voice:
+            await ctx.send(vc)
+
+    else:
+        await ctx.send(f"No Voice Channels in {ctx.guild.name}")
+
+
+
 
 @bot.command(name="info")
 async def show_info(ctx):
