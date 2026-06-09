@@ -21,6 +21,9 @@ async def on_ready():
 async def on_member_join(member: discord.Member):
     await member.send(f"Welcome to {member.guild.name}, {member.mention}!")
 
+#@bot.command(name="serverinfo")
+# add server information function here
+
 @bot.command(name="info")
 async def show_info(ctx):
     await ctx.send("Available Commands:")
@@ -61,60 +64,26 @@ async def poll(ctx, *, question: str):
 @bot.command(name="rps")
 async def play_rps(ctx, user_choice: str):
     
-    #var setup
-    bot_choice = random.randint(1, 3)
-    rock = 1
-    paper = 2
-    scissors = 3
+    bot_choice = random.choice(["rock", 'paper', 'scissors'])
+
+    decision_dict = {
+    "rock" : 'scissors',
+    "paper" : 'rock',
+    "scissors" : 'paper',
+    }
 
 
-    #turn user option into an int
-    if user_choice.lower() == 'rock':
-        user_choice = rock
-
-    elif user_choice.lower() == 'paper':
-        user_choice = paper
-
-    elif user_choice.lower() == 'scissors':
-        user_choice = scissors
-
-    
-    #bot logic 
-    if bot_choice == rock and user_choice == rock:
-        await ctx.send("I chose rock.")
+    if user_choice.lower() == bot_choice:
+        await ctx.send(f"I chose {bot_choice}")
         await ctx.send("We tied!")
 
-    elif bot_choice == rock and user_choice == paper:
-        await ctx.send("I chose rock.")
-        await ctx.send("You Win!")
+    elif decision_dict[user_choice] == bot_choice:
+        await ctx.send(f'I chose {bot_choice}')
+        await ctx.send("You win!")
 
-    elif bot_choice == rock and user_choice == scissors:
-        await ctx.send("I chose rock.")
+    else:
+        await ctx.send(f"I chose {bot_choice}")
         await ctx.send("I win!")
-
-    elif bot_choice == paper and user_choice == rock:
-        await ctx.send("I chose paper.")
-        await ctx.send("I win!")
-
-    elif bot_choice == paper and user_choice == paper:
-        await ctx.send("I chose paper.")
-        await ctx.send("We tied!")
-
-    elif bot_choice == paper and user_choice == scissors:
-        await ctx.send("I chose paper.")
-        await ctx.send("You Win!")
-
-    elif bot_choice == scissors and user_choice == rock:
-        await ctx.send("I chose scissors.")
-        await ctx.send("You Win!")
-
-    elif bot_choice == scissors and user_choice == paper:
-        await ctx.send("I chose scissors.")
-        await ctx.send("I Win!")
-
-    elif bot_choice == scissors and user_choice ==  scissors:
-        await ctx.send("I chose scissors.")
-        await ctx.send("We tied!")
 
 bot.run(token)
 
