@@ -3,19 +3,12 @@ from discord.ext import commands
 import discord
 import random
 
-token = 'enter yours here'
+token = 'add yours here'
 intents = discord.Intents.all()
 
 bot = commands.Bot(command_prefix='!', intents = intents)
 
 commands_list = ['!info', '!rps + your choice', '!poll + your question', '!clear + amount of messages you want cleared.', '!serverinfo']
-
-@bot.event
-async def on_ready():
-    channel = bot.get_channel(1513658673996632356)
-
-    if channel:
-        await channel.send("Maxibot online. Type !info to see commands.")
 
 @bot.event
 async def on_member_join(member: discord.Member):
@@ -33,7 +26,7 @@ async def show_server_info(ctx):
     await ctx.send(f"Created: \n {creation_date} \n ----------------------")
 
     await ctx.send(f"Guild Member Count: \n {ctx.guild.member_count} \n ----------------------")
-    
+
     await ctx.send('Text Channels:')
     for txt in guild_chat:
         await ctx.send(txt)
